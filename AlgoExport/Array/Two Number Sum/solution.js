@@ -2,7 +2,7 @@
  * 
  * @param {number[]} array 
  * @param {number} targetSum 
- * @returns
+ * @returns {number[]}
  */
 function twoNumberSum(array, targetSum) {
   if (array.length === 1) {
