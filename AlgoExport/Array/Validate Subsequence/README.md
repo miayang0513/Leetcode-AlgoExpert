@@ -1,4 +1,4 @@
-# [Two Number Sum](https://www.algoexpert.io/questions/two-number-sum)
+# [Validate Subsequence](https://www.algoexpert.io/questions/validate-subsequence)
 
 `Easy` `Array`
 
