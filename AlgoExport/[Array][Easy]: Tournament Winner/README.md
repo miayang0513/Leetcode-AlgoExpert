@@ -10,6 +10,7 @@ Given an array of pairs representing the teams that have competed against each o
 It's guaranteed that exactly one team will win the tournament and that each team will compete against all other teams exactly once. It's also guaranteed that the tournament will always have at least two teams.
 
 **Sample Input**
+
 competitions = [
   ["HTML", "C#"],
   ["C#", "Python"],
@@ -18,6 +19,7 @@ competitions = [
 results = [0, 0, 1]
 
 **Sample Output**
+
 "Python"
 // C# beats HTML, Python Beats C#, and Python Beats HTML.
 // HTML - 0 points 
@@ -26,6 +28,13 @@ results = [0, 0, 1]
 
 ### My Solution
 ```js
+/**
+ * 
+ * @param {string[][]} competitions 
+ * @param {number[]} results 
+ * @returns {string}
+ */
+
 function tournamentWinner(competitions, results) {
   let champion = ''
   const leaderBoard = { [champion]: 0 }

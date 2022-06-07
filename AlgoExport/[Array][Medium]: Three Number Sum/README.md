@@ -10,24 +10,45 @@ If no three numbers sum up to the target sum, the function should return an empt
 
 
 **Sample Input**
+
 array = [12, 3, 1, 2, -6, 5, -8, 6]
 targetSum = 0
 
 **Sample Output**
+
 [[-8, 2, 6], [-8, 3, 5], [-6, 1, 5]]
 
 ### My Solution
 ```js
-function nonConstructibleChange(coins) {
-  coins.sort((a, b) => a-b)
 
-  let sum = 0
-  for (let i = 0; i < coins.length; i++) {
-    if (sum + 1 < coins[i]) {
-      break
+/**
+ * 
+ * @param {number[]} array
+ * @param {number} targetSum
+ * @returns {number[][]}
+ */
+
+function threeNumberSum (array, targetSum) {
+  array.sort((a, b) => a - b)
+  const results = []
+  for (let i = 0; i < array.length - 2; i++) {
+    const currentTargetSum = targetSum - array[i]
+    let leftIndex = i + 1
+    let rightIndex = array.length - 1
+    while (leftIndex < rightIndex) {
+      const sum = array[leftIndex] + array[rightIndex]
+      if (currentTargetSum === sum) {
+        results.push([array[i], array[leftIndex], array[rightIndex]])
+        leftIndex++
+        rightIndex--
+      } else if (currentTargetSum > sum) {
+        leftIndex++
+      } else {
+        rightIndex--
+      }
     }
-    sum += coins[i]
   }
-  return ++sum
+  return results
 }
+
 ```

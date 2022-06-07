@@ -3,7 +3,7 @@
  * 
  * @param {number[]} array
  * @param {number} targetSum
- * @returns {[number[]]}
+ * @returns {number[][]}
  */
 
 function threeNumberSum (array, targetSum) {

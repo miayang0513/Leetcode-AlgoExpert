@@ -44,14 +44,22 @@ Only one valid answer exists.
 ### My Solution
 
 ```js
-if (nums.length === 2) {
-  return [0, 1];
-}
-const map = {};
-for (let i = 0; i < nums.length; i++) {
-  if (nums[i] in map) {
-    return [i, map[nums[i]]];
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+
+var twoSum = function (nums, target) {
+  if (nums.length === 2) {
+    return [0, 1]
   }
-  map[target - nums[i]] = i;
+  const map = {}
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] in map) {
+      return [i, map[nums[i]]]
+    }
+    map[target - nums[i]] = i
+  }
 }
 ```

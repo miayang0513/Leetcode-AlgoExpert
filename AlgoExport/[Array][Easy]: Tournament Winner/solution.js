@@ -1,6 +1,6 @@
 /**
  * 
- * @param {[][]} competitions 
+ * @param {string[][]} competitions 
  * @param {number[]} results 
  * @returns {string}
  */

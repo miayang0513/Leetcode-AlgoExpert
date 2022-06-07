@@ -8,9 +8,11 @@ Given an array of positive integers representing the values of coins in your pos
 For example, if you're given coins = `[1, 2, 5]`, the minimum amount of change that you can't create is `4`. If you're given no coins, the minimum amount of change that you can't create is `1`.
 
 **Sample Input**
+
 coins = [5, 7, 1, 1, 2, 3, 22]
 
 **Sample Output**
+
 20
 
 ### My Solution
