@@ -1,6 +1,6 @@
 # [Remove Kth Node From End](https://www.algoexpert.io/questions/remove-kth-node-from-end)
 
-`Easy` `Linked List`
+`Medium` `Linked List`
 
 ### Question
 
