@@ -1,8 +1,4 @@
-/*
-Constraints
-- same order
-- non-empty array
-*/
+
 
 /**
  * 
@@ -10,21 +6,24 @@ Constraints
  * @param {number[]} sequence
  * @returns {boolean}
  */
+
+/*
+Constraints
+- non-empty arrays of integers
+- not necessarily adjacent but same order
+*/
+
 function isValidSubsequence(array, sequence) {
-  if (sequence.length > array.length) {
-    return false
-  }
-  let lastIndex = -1
-  for (let i = 0; i < sequence.length; i++) {
-    const currentIndex = array.indexOf(sequence[i], lastIndex + 1)
-    if (currentIndex === -1) {
-      return false
+  let index = 0
+  let seqIndex = 0
+
+  while (seqIndex < sequence.length && index < array.length) {
+    if (sequence[seqIndex] === array[index]) {
+      seqIndex++
     }
-    if (currentIndex > lastIndex) {
-      lastIndex = currentIndex
-    } else {
-      return false
-    }
+    index++
   }
-  return true
+
+  return seqIndex === sequence.length
 }
+
