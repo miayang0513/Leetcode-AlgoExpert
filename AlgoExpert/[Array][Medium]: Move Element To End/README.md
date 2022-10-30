@@ -29,21 +29,20 @@ function moveElementToEnd (array, toMove) {
   let rightIndex = array.length - 1
 
   while (leftIndex < rightIndex) {
-    if (array[leftIndex] === toMove && array[rightIndex] !== toMove) {
-      const temp = array[leftIndex]
-      array[leftIndex] = array[rightIndex]
-      array[rightIndex] = temp
-      leftIndex++
+    while (leftIndex < rightIndex && array[rightIndex] === toMove) {
       rightIndex--
-    } else {
-      if (array[leftIndex] !== toMove) {
-        leftIndex++
-      }
-      if (array[rightIndex] === toMove) {
-        rightIndex--
-      }
     }
+
+    if (array[leftIndex] === toMove) {
+      const temp = array[rightIndex]
+      array[rightIndex] = array[leftIndex] // equal to toMove
+      array[leftIndex] = temp
+
+      rightIndex--
+    }
+    leftIndex++
   }
+
   return array
 }
 ```
