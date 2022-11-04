@@ -29,32 +29,20 @@ array = [5, 1, 4, 2]
  * @returns  {number[]}
  */
 function arrayOfProducts(array) {
-  let total = 1
-  let zeroExistTime = 0
-  let indexOfOnlyOneZero = -1
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] === 0) {
-      zeroExistTime++
-      if (zeroExistTime === 2) {
-        return new Array(array.length).fill(0)
-      }
-      indexOfOnlyOneZero = i
-      continue
-    }
-    total = total * array[i]
-  }
+  const products = new Array(array.length).fill(1)
 
-  if (zeroExistTime === 1) {
-    const outputs = new Array(array.length).fill(0)
-    outputs[indexOfOnlyOneZero] = total
-    return outputs
+  let leftProduct = 1
+  for (let i = 0; i < array.length; i++) {
+    products[i] = leftProduct
+    leftProduct *= array[i]
   }
   
-  const outputs = []
-  for (let i = 0; i < array.length; i++) {
-    outputs.push(total / array[i])
+  let rightProduct = 1
+  for (let i = array.length - 1; i >= 0; i--) {
+    products[i] *= rightProduct
+    rightProduct *= array[i]
   }
 
-  return outputs
+  return products
 }
 ```
