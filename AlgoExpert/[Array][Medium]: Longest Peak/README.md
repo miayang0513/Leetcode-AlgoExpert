@@ -27,40 +27,29 @@ array = [1, 2, 3, 3, 4, 0, 10, 6, 5, -1, -3, 2, 3]
 
 function longestPeak (array) {
   let currentLongestPeak = 0
+  let i = 1
 
-  if (array.length < 3) {
-    return currentLongestPeak
-  }
+  while (i < array.length - 1) {
+    const isPeak = array[i - 1] < array[i] && array[i] > array[i + 1]
 
-  let currentDirection = 0
-  let currentStartIndex = undefined
-  let currentEndIndex = undefined
-
-  for (let i = 0; i < array.length - 1; i++) {
-    if (array[i + 1] > array[i]) {
-      if (currentDirection !== 1) {
-        if (currentStartIndex !== undefined && currentDirection === -1) {
-          currentLongestPeak = Math.max(currentLongestPeak, currentEndIndex - currentStartIndex + 1)
-        }
-        currentStartIndex = i
-        currentEndIndex = undefined
-        currentDirection = 1
-      }
-    } else if (array[i + 1] === array[i]) {
-      if (currentStartIndex !== undefined && currentDirection === -1) {
-        currentLongestPeak = Math.max(currentLongestPeak, currentEndIndex - currentStartIndex + 1)
-      }
-      currentDirection = 0
-      currentStartIndex = undefined
-      currentEndIndex = undefined
-    } else {
-      currentEndIndex = i + 1
-      currentDirection = -1
+    if (!isPeak) {
+      i++
+      continue
     }
-  }
 
-  if (currentStartIndex !== undefined && currentEndIndex !== undefined) {
-    currentLongestPeak = Math.max(currentLongestPeak, currentEndIndex - currentStartIndex + 1)
+    let left = i - 1
+    while (left - 1 >= 0 && array[left - 1] < array[left]) {
+      left--
+    }
+
+    let right = i + 1
+    while (right + 1 < array.length && array[right] > array[right + 1]) {
+      right++
+    }
+
+
+    currentLongestPeak = Math.max(currentLongestPeak, right - left + 1)
+    i = right
   }
 
   return currentLongestPeak
