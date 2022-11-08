@@ -32,22 +32,24 @@ intervals = [[1, 2], [3, 5], [4, 7], [6, 8], [9, 10]]
  */
 
 function mergeOverlappingIntervals (array) {
-  array.sort((a, b) => a[0] - b[0])
+  if (array.length <= 1) return array
+
+  array.sort((a , b) => a[0] - b[0])
+  
   let index = 0
-  while (index < array.length - 1) {
-    const [start, end] = array[index]
-    const [nextStart, nextEnd] = array[index + 1]
-
-    if (nextStart > end) {
-      index++
-      continue
+  const answer = []
+  while (index < array.length) {
+    let [currentMin, currentMax] = array[index]
+    let next = index + 1
+    while (next < array.length && currentMax >= array[next][0]) {
+      currentMax = Math.max(currentMax, array[next][1])
+      next++
     }
-
-    array[index][0] = start
-    array[index][1] = Math.max(end, nextEnd)
-    array.splice(index + 1, 1)
+    answer.push([currentMin, currentMax])
+    index = next
   }
-  return array
+
+  return answer
 }
 
 ```
