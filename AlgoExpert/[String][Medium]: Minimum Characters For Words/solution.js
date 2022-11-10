@@ -4,32 +4,34 @@
  * @returns {string[]}
  */
 function minimumCharactersForWords (words) {
-  const minimumMap = {}
+  const charMap = {}
 
   for (const word of words) {
-    const currentMinimumMap = {}
+    const currentCharMap = {}
     for (const char of word) {
-      currentMinimumMap[char] = currentMinimumMap[char] + 1 || 1
-    }
-    for (const char of Object.keys(currentMinimumMap)) {
-      if (char in minimumMap) {
-        minimumMap[char] = Math.max(minimumMap[char], currentMinimumMap[char])
+      if (char in currentCharMap) {
+        currentCharMap[char]++
+        if (char in charMap) {
+          charMap[char] = Math.max(currentCharMap[char], charMap[char])
+        }
       } else {
-        minimumMap[char] = currentMinimumMap[char]
+        currentCharMap[char] = 1
+        if (!(char in charMap)) {
+          charMap[char] = 1
+        }
       }
-    } 
-  }
-
-  const ans = []
-  for (const char of Object.keys(minimumMap)) {
-    for (let i = 0; i < minimumMap[char]; i++) {
-      ans.push(char) 
     }
   }
 
-  return ans
-}
+  const answer = []
 
+  for (const char in charMap) {
+    const arr = new Array(charMap[char]).fill(char)
+    answer.push(...arr)
+  }
+
+  return answer
+}
 
 console.log(minimumCharactersForWords(["this", "that", "did", "deed", "them!", "a"]))
 /**

@@ -27,46 +27,34 @@ words = ["this", "that", "did", "deed", "them!", "a"]
  * @param {string} string 
  * @returns {string[]}
  */
-function validIPAddresses (string) {
-  const ans = []
+function minimumCharactersForWords (words) {
+  const charMap = {}
 
-  if (string.length < 4) {
-    return ans
-  }
-
-  for (let i = 0; i < 4; i++) {
-    const currentIPAddress = ['', '', '', '']
-
-    currentIPAddress[0] = string.slice(0, i)
-    if (!checkValid(currentIPAddress[0])) {
-      continue
-    }
-
-    for (let j = i + 1; j < i + Math.min(string - i, 4); j++) {
-      currentIPAddress[1] = string.slice(i, j)
-      if (!checkValid(currentIPAddress[1])) {
-        continue
-      }
-      for (let k = j + 1; k < j + Math.min(string - j, 4); k++) {
-        currentIPAddress[2] = string.slice(j, k)
-        currentIPAddress[3] = string.slice(k)
-        if (checkValid(currentIPAddress[2]) && checkValid(currentIPAddress[3])) {
-          ans.push(currentIPAddress.join('.'))
+  for (const word of words) {
+    const currentCharMap = {}
+    for (const char of word) {
+      if (char in currentCharMap) {
+        currentCharMap[char]++
+        if (char in charMap) {
+          charMap[char] = Math.max(currentCharMap[char], charMap[char])
+        }
+      } else {
+        currentCharMap[char] = 1
+        if (!(char in charMap)) {
+          charMap[char] = 1
         }
       }
     }
   }
 
-  return ans
-}
+  const answer = []
 
-function checkValid (num) {
-  const string2Int = parseInt(num)
-
-  if (string2Int > 255) {
-    return false
+  for (const char in charMap) {
+    const arr = new Array(charMap[char]).fill(char)
+    answer.push(...arr)
   }
-  return num.length === string2Int.toString().length
+
+  return answer
 }
 
 ```
