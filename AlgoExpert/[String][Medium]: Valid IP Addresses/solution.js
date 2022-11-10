@@ -4,47 +4,41 @@
  * @returns {string[]}
  */
 function validIPAddresses (string) {
-  const ans = []
+  const answer = []
+  const len = string.length
+  for (let first = 1; first < 4; first++) {
+    const firstNum = string.slice(0, first)
 
-  if (string.length < 4) {
-    return ans
-  }
+    if (!checkNumberValid(firstNum)) continue
 
-  for (let i = 0; i < 4; i++) {
-    const currentIPAddress = ['', '', '', '']
+    for (let second = first + 1; second < first + Math.min(len - first, 4); second++) {
+      const secondNum = string.slice(first, second)
 
-    currentIPAddress[0] = string.slice(0, i)
-    if (!checkValid(currentIPAddress[0])) {
-      continue
-    }
+      if (!checkNumberValid(secondNum)) continue
 
-    for (let j = i + 1; j < i + Math.min(string - i, 4); j++) {
-      currentIPAddress[1] = string.slice(i, j)
-      if (!checkValid(currentIPAddress[1])) {
-        continue
-      }
-      for (let k = j + 1; k < j + Math.min(string - j, 4); k++) {
-        currentIPAddress[2] = string.slice(j, k)
-        currentIPAddress[3] = string.slice(k)
-        if (checkValid(currentIPAddress[2]) && checkValid(currentIPAddress[3])) {
-          ans.push(currentIPAddress.join('.'))
+      for (let third = second + 1; third < second + Math.min(len - second, 4); third++) {
+        const thirdNum = string.slice(second, third)
+        const fourNum = string.slice(third, string.length)
+
+        if (checkNumberValid(thirdNum) && checkNumberValid(fourNum)) {
+          answer.push([firstNum, secondNum, thirdNum, fourNum].join("."))
         }
       }
     }
   }
 
-  return ans
+  return answer
 }
 
-function checkValid (num) {
-  const string2Int = parseInt(num)
+function checkNumberValid (string) {
+  const number = Number(string)
 
-  if (string2Int > 255) {
-    return false
-  }
-  return num.length === string2Int.toString().length
+  if (string !== String(number)) return false
+
+  if (number < 0 || number > 255) return false
+
+  return true
 }
-
 
 console.log(validIPAddresses("1921680"))
 /**
