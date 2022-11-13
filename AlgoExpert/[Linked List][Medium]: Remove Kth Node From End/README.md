@@ -44,28 +44,25 @@ class LinkedList {
  * @param {number} k
  */
 function removeKthNodeFromEnd (head, k) {
-  let length = 0
-  let currentNode = head
+  let counter = 0
+  let first = head
+  let second = head
 
-  while (currentNode) {
-    length++
-    currentNode = currentNode.next
+  while (counter < k) {
+    second = second.next
+    counter++
   }
 
-  if (k === length) {
+  if (second === null) {
     head.value = head.next.value
     head.next = head.next.next
-  } else {
-    let count = 0
-    currentNode = head
-    while (count < length - k) {
-      const nextNode = currentNode.next
-      if (count === length - k - 1) {
-        currentNode.next = nextNode.next
-      }
-      currentNode = nextNode
-      count++
-    }
+    return
   }
+
+  while (second.next !== null) {
+    second = second.next
+    first = first.next
+  }
+  first.next = first.next.next
 }
 ```
