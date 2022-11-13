@@ -35,18 +35,14 @@ class LinkedList {
 
 function removeDuplicatesFromLinkedList (linkedList) {
   let currentNode = linkedList
-  while (currentNode !== null) {
-    const nextNode = currentNode.next
 
-    if (nextNode === null) {
-      break
+  while (currentNode) {
+    let nextDistinctNode = currentNode.next
+    while (nextDistinctNode && nextDistinctNode.value === currentNode.value) {
+      nextDistinctNode = nextDistinctNode.next
     }
-
-    if (currentNode.value === nextNode.value) {
-      currentNode.next = nextNode.next
-    } else {
-      currentNode = nextNode
-    }
+    currentNode.next = nextDistinctNode
+    currentNode = nextDistinctNode
   }
 
   return linkedList
