@@ -7,23 +7,23 @@
  * @returns {boolean}
  */
 
-/*
-Constraints
-- non-empty arrays of integers
-- not necessarily adjacent but same order
-*/
+// 1. two non-empty array.
+// 2. not necessarily adjacent but in the same order.
+// 3. single number in an array and the array itself are both valid.
 
 function isValidSubsequence(array, sequence) {
-  let index = 0
-  let seqIndex = 0
+  let indexOfArray = 0
+  let indexOfSeq = 0
 
-  while (seqIndex < sequence.length && index < array.length) {
-    if (sequence[seqIndex] === array[index]) {
-      seqIndex++
+  while (indexOfArray < array.length && indexOfSeq < sequence.length) {
+    if (array[indexOfArray] === sequence[indexOfSeq]) {
+      indexOfSeq++
     }
-    index++
+
+    indexOfArray++
   }
 
-  return seqIndex === sequence.length
+  return indexOfSeq === sequence.length
 }
 
+// O(n) time | O(1) space, where n is the length of array
