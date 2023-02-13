@@ -1,3 +1,7 @@
+// 1. Non-empty array.
+// 2. can't use single integer twice.
+// 3. no two numbers sum up to the target sum, then return empty array.
+// 4. the numbers could be in any order [x1, x2] or [x2, x1]
 /**
  * 
  * @param {number[]} array 
@@ -5,17 +9,17 @@
  * @returns {number[]}
  */
 function twoNumberSum(array, targetSum) {
-  if (array.length === 1) {
-    return []
-  }
-
   const map = {}
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] in map) {
-      return [array[i], array[map[array[i]]]]
+
+  for (const current of array) {
+    if (current in map) {
+      return [current, map[current]]
     }
-    map[targetSum - array[i]] = i
+
+    map[targetSum - current] = current
   }
 
   return []
 }
+
+// O(n) time | O(n) space
