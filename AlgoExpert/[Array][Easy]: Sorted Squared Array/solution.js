@@ -4,34 +4,32 @@
  * @returns {number[]}
  */
 
-function sortedSquaredArray (array) {
-  /**
-   * Notice:
-   * - integer can be negative or zero
-   */
-  // solution 1 - brute force
-  // let result = []
-  // array.forEach(number => result.push(number * number))
-  // result.sort((a, b) => a - b)
-  // return result
+// 1. non-empty array which is ascending order
+// 2. return squares of the input array also sorted in ascending order.
+// 3. it could have negative number.
 
-  // solution 2 - refer to Answer
-  const result = new Array(array.length).fill(0)
-  let leftSideIndex = 0
-  let rightSideIndex = result.length - 1
+function sortedSquaredArray(array) {
+  const squaredArray = new Array(array.length).fill(0)
+  let left = 0
+  let right = array.length - 1
 
-  for (let i = result.length - 1; i >= 0; i--) {
-    if (Math.abs(array[leftSideIndex]) > Math.abs(array[rightSideIndex])) {
-      result[i] = array[leftSideIndex] * array[leftSideIndex]
-      leftSideIndex++
+  for (let index = right; index >= 0; index--) {
+    const leftNum = array[left]
+    const rightNum = array[right]
+    
+    if (Math.abs(leftNum) <= Math.abs(rightNum)) {
+      squaredArray[index] = rightNum * rightNum
+      right--
     } else {
-      result[i] = array[rightSideIndex] * array[rightSideIndex]
-      rightSideIndex--
+      squaredArray[index] = leftNum * leftNum 
+      left++
     }
   }
 
-  return result
+  return squaredArray
 }
+
+// O(n) time | O(n) space, where n is the length of the input array.
 
 console.log(sortedSquaredArray([1, 2, 3, 5, 6, 8, 9]))
 console.log(sortedSquaredArray([0]))
