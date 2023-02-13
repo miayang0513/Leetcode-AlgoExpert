@@ -4,22 +4,36 @@
  * @param {number[]} results 
  * @returns {string}
  */
-function tournamentWinner (competitions, results) {
-  let champion = ''
-  const leaderBoard = { [champion]: 0 }
+
+// 1. competitions -> [homeTeam, awayTeam]
+// 2. results[i] means the winner of competitions[i], where a = 1 means home team won the competition and a = 0 means away team won
+// 3. return winner.
+
+function tournamentWinner(competitions, results) {
+  let currentWinner = ''
+  const scoreBoard = { [currentWinner]: 0 }
+
   for (let i = 0; i < competitions.length; i++) {
-    const winner = competitions[i][results[i] === 1 ? 0 : 1]
-    if (winner in leaderBoard) {
-      leaderBoard[winner] += 3
+    const [homeTeam, awayTeam] = competitions[i]
+    const result = results[i]
+    const winner = result === 1 ? homeTeam : awayTeam
+
+    if (winner in scoreBoard) {
+      scoreBoard[winner] += 3
     } else {
-      leaderBoard[winner] = 3
+      scoreBoard[winner] = 3
     }
-    if (leaderBoard[winner] > leaderBoard[champion]) {
-      champion = winner
+
+    if (scoreBoard[winner] > scoreBoard[currentWinner]) {
+      currentWinner = winner
     }
   }
-  return champion
+
+  return currentWinner
 }
+
+// O(n) time | O(k) space, where n is the number of competitions and k is the number of teams
+
 console.log(tournamentWinner([
   ["HTML", "C#"],
   ["C#", "Python"],
