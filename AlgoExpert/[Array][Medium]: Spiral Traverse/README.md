@@ -28,59 +28,42 @@ array = [
  * @returns {number[]}
  */
 
-function spiralTraverse (array) {
+function spiralTraverse(array) {
   const results = []
-  let x = 0
-  let y = 0
-  let maxX = array[0].length
-  let minX = -1
-  let maxY = array.length
-  let minY = 0
-  let direction = 1 // 1 left to right, 2 top to bottom, 3 right to left, 4, bottom to top
-  while (results.length < array[0].length * array.length) {
-    console.log(maxY, maxX, y, x)
-    results.push(array[y][x])
+  let startRow = 0
+  let endRow = array.length - 1
+  let startCol = 0
+  let endCol = array[0].length - 1
 
-    switch (direction) {
-      case 1:
-        if (x + 1 < maxX) {
-          x++
-        } else {
-          maxX--
-          y++
-          direction = 2
-        }
-        break
-      case 2:
-        if (y + 1 < maxY) {
-          y++
-        } else {
-          maxY--
-          x--
-          direction = 3
-        }
-        break
-      case 3:
-        if (x - 1 > minX) {
-          x--
-        } else {
-          minX++
-          y--
-          direction = 4
-        }
-        break
-      case 4:
-        if (y - 1 > minY) {
-          y--
-        } else {
-          minY++
-          x++
-          direction = 1
-        }
-        break
+  while (startRow <= endRow && startCol <= endCol) {
+    for (let col = startCol; col <= endCol; col++) {
+      results.push(array[startRow][col])
     }
+
+
+    for (let row = startRow + 1; row <= endRow; row++) {
+      results.push(array[row][endCol])
+    }
+
+
+    if (startRow === endRow) break
+    for (let col = endCol - 1; col >= startCol; col--) {
+      results.push(array[endRow][col])
+    }
+
+    if (startCol === endCol) break
+    for (let row = endRow - 1; row > startRow; row--) {
+      results.push(array[row][startCol])
+    }
+
+    startCol++
+    endCol--
+    startRow++
+    endRow--
   }
 
   return results
 }
+
+// O(n) time | O(n) space, where n is the total number of elements in the array.
 ```
