@@ -5,25 +5,33 @@
  * @return {boolean}
  */
 
- function isMonotonic (array) {
-  if (array.length <= 2) {
+// 1. empty array or arrays of one element are monotonic.
+
+function isMonotonic(array) {
+  if (array.length < 2) {
     return true
   }
 
-  let direction = 0
-  for (let i = 0; i < array.length - 1; i++) {
-    if (array[i + 1] - array[i] !== 0) {
-      if (direction === 0) {
-        direction = Math.sign(array[i + 1] - array[i])
-        continue
-      } else if (Math.sign(array[i + 1] - array[i]) !== direction) {
-        return false
-      }
+  let direction = Math.sign(array[1] - array[0])
+  for (let i = 2; i < array.length; i++) {
+    let currentDirection = Math.sign(array[i] - array[i - 1])
+
+    if (currentDirection === 0) {
+      continue
+    }
+
+    if (direction === 0) {
+      direction = currentDirection 
+      continue
+    } else if (currentDirection !== direction) {
+      return false
     }
   }
 
   return true
 }
+
+// O(n) time | O(1) space, where n is the length of array
 
 console.log(isMonotonic([-1, -5, -10, -1100, -1101, -1101, -1102, -9001])) // true
 console.log(isMonotonic([-1, -5, -10, -1100, -1101, -1109, -1102, -9001])) // false
