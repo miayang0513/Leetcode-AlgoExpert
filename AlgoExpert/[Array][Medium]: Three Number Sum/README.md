@@ -27,6 +27,13 @@ targetSum = 0
  * @param {number} targetSum
  * @returns {number[][]}
  */
+
+// 1. non-empty input array.
+// 2. return [[x, y, z], ...], where x + y + z = targetSum and they should be ordered in ascending order
+// 3. the triplets themselves should be ordered in ascending order, for example [[x1, y1, z1], [x2, y2, z2]], where x1 < x2
+// 4. return empty array if there is no any triplet.
+
+
 function threeNumberSum(array, targetSum) {
   array.sort((a, b) => a - b)
   const results = []
@@ -48,4 +55,6 @@ function threeNumberSum(array, targetSum) {
   }
   return results
 }
+
+// O(n^2) time | O(n) space, where n is the length of array
 ```
