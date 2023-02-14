@@ -24,25 +24,32 @@ toMove = 2
  * @param {number[]} array
  * @param {number} toMove
  */
-function moveElementToEnd (array, toMove) {
-  let leftIndex = 0
-  let rightIndex = array.length - 1
 
-  while (leftIndex < rightIndex) {
-    while (leftIndex < rightIndex && array[rightIndex] === toMove) {
-      rightIndex--
+// 1. non-empty input array.
+// 2. it should mutate original input array and doesn't need to maintain the order of the other integers.
+
+function moveElementToEnd(array, toMove) {
+  let left = 0
+  let right = array.length - 1
+
+  while (left < right) {
+    while (left < right && array[right] === toMove) {
+      right--
+    }
+    while (left < right && array[left] !== toMove) {
+      left++
     }
 
-    if (array[leftIndex] === toMove) {
-      const temp = array[rightIndex]
-      array[rightIndex] = array[leftIndex] // equal to toMove
-      array[leftIndex] = temp
-
-      rightIndex--
+    if (array[left] === toMove && array[right] !== toMove) {
+      array[left] = array[right]
+      array[right] = toMove
+      left++
+      right--
     }
-    leftIndex++
   }
 
   return array
 }
+
+// O(n) time | O(1) space, where n is the length of the array.
 ```
