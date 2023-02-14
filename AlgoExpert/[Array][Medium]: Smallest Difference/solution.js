@@ -5,59 +5,44 @@
  * @return {number[]}
  */
 
-function smallestDifference (arrayOne, arrayTwo) {
-  // solution 1
-  // const mergeArray = []
+// 1. two non-empty input array (not sorted)
+// 2. return a pair of numbers(one from each array) whose absolute difference is closest to zero.
+// 3. return format [x, y], where x is from arrayOne and y is from arrayTwo.
+// 4. only one answer.
 
-  // arrayOne.forEach(value => mergeArray.push([0, value]))
-  // arrayTwo.forEach(value => mergeArray.push([1, value]))
 
-  // mergeArray.sort((a, b) => a[1] - b[1])
-
-  // let index = 0
-  // let currentSmallestDifference = mergeArray[mergeArray.length - 1][1] - mergeArray[0][1]
-  // const currentSmallestValue = []
-  // while (index < mergeArray.length - 1) {
-  //   if (mergeArray[index][0] !== mergeArray[index + 1][0] && (mergeArray[index + 1][1] - mergeArray[index][1]) < currentSmallestDifference) {
-  //     currentSmallestDifference = mergeArray[index + 1][1] - mergeArray[index][1]
-  //     currentSmallestValue[mergeArray[index][0]] = mergeArray[index][1]
-  //     currentSmallestValue[mergeArray[index + 1][0]] = mergeArray[index + 1][1]
-  //   }
-  //   index++
-  // }
-  // return currentSmallestValue
-
-  // solution 2
+function smallestDifference(arrayOne, arrayTwo) {
   arrayOne.sort((a, b) => a - b)
   arrayTwo.sort((a, b) => a - b)
 
+  const answer = []
   let indexOne = 0
   let indexTwo = 0
-  let smallestDifference = Infinity
-  const smallestValue = []
+  let smallest = Infinity
 
   while (indexOne < arrayOne.length && indexTwo < arrayTwo.length) {
-    let currentDifference
-    let firstNum = arrayOne[indexOne]
-    let secondNum = arrayTwo[indexTwo]
+    const one = arrayOne[indexOne]
+    const two = arrayTwo[indexTwo]
+    const difference = Math.abs(two - one)
 
-    if (firstNum === secondNum) {
-      return [firstNum, secondNum]
-    } else if (firstNum > secondNum) {
-      currentDifference = firstNum - secondNum
+    if (difference < smallest) {
+      answer[0] = one
+      answer[1] = two
+      smallest = difference
+    }
+
+    if (one < two) {
+      indexOne++
+    } else if (two < one) {
       indexTwo++
     } else {
-      currentDifference = secondNum - firstNum
-      indexOne++
-    }
-
-    if (smallestDifference > currentDifference) {
-      smallestDifference = currentDifference
-      smallestValue[0] = firstNum
-      smallestValue[1] = secondNum
+      return [one, two]
     }
   }
-  return smallestValue
+
+  return answer
 }
+
+// O(nlog(n) + mlong(m)) time | O(1) space, where n is the length of arrayOne and m is the length of arrayTwo.
 
 console.log(smallestDifference([-1, 5, 10, 20, 28, 3], [26, 134, 135, 15, 17])) // [26, 28]
