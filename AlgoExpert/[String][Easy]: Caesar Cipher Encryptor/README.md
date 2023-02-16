@@ -27,17 +27,21 @@ key = 2
  * @returns {boolean}
  */
 
-function isPalindrome (string) {
-  let left = 0
-  let right = string.length - 1
+// 1. non-empty string of lowercase.
+// 2. non-negative key.
+// 3. ASCII: a - z => 97 - 122
 
-  while (left < right) {
-    if (string[left] !== string[right]) {
-      return false
-    }
-    left++
-    right--
+function caesarCipherEncryptor(string, key) {
+  let answer = ''
+
+  for (const s of string) {
+    const oldPosition = s.charCodeAt(0) - 97
+    const newPosition = (oldPosition + key) % 26
+    answer += String.fromCharCode(97 + newPosition)
   }
-  return true
+
+  return answer
 }
+
+// O(n) time | O(n) space, where n is the length of string.
 ```

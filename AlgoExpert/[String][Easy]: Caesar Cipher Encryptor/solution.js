@@ -5,15 +5,23 @@
  * @returns {string}
  */
 
-function caesarCipherEncryptor (string, key) {
-  const alphabet = 'abcdefghijklmnopqrstuvwxyz'
-  let newString = ''
+// 1. non-empty string of lowercase.
+// 2. non-negative key.
+// 3. ASCII: a - z => 97 - 122
 
-  for (const letter of string) {
-    newString += alphabet[(alphabet.indexOf(letter) + key) % 26]
+function caesarCipherEncryptor(string, key) {
+  let answer = ''
+
+  for (const s of string) {
+    const oldPosition = s.charCodeAt(0) - 97
+    const newPosition = (oldPosition + key) % 26
+    answer += String.fromCharCode(97 + newPosition)
   }
-  return newString
+
+  return answer
 }
+
+// O(n) time | O(n) space, where n is the length of string.
 
 
 console.log(caesarCipherEncryptor("xyz", 2)) // "zab"
