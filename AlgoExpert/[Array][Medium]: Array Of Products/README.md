@@ -28,6 +28,12 @@ array = [5, 1, 4, 2]
  * @param {number[]} array 
  * @returns  {number[]}
  */
+
+// 1. non-empty input array.
+// 2. returns an array of the same length, where each element in the output array is equal to the product of every other number in the input array.
+// 3. without using division.
+
+
 function arrayOfProducts(array) {
   const products = new Array(array.length).fill(1)
 
@@ -45,4 +51,6 @@ function arrayOfProducts(array) {
 
   return products
 }
+
+// O(n) time | O(n) space, where n is the length of the input array.
 ```
