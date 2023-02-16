@@ -26,7 +26,11 @@ true // it's written the same forward and backward
  * @returns {boolean}
  */
 
-function isPalindrome (string) {
+// 1. non-empty string.
+// 2. palindrome is string which is written the same forward and backward.
+// 3. single-character strings are palindromes.
+
+function isPalindrome(string) {
   let left = 0
   let right = string.length - 1
 
@@ -37,6 +41,9 @@ function isPalindrome (string) {
     left++
     right--
   }
+
   return true
 }
+
+// O(n) time | O(1) space, where n is the length of string
 ```
