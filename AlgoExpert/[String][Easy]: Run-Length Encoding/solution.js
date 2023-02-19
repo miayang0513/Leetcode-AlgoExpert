@@ -3,24 +3,32 @@
  * @param {string} string 
  * @returns {string}
  */
-function runLengthEncoding (string) {
-  let encodeString = ''
-  let currentCharCounts = 1
-  for (let i = 1; i < string.length; i++) {
-    const currentChar = string[i]
-    const previousChar = string[i - 1]
 
-    if (currentChar != previousChar || currentCharCounts === 9) {
-      encodeString += `${currentCharCounts}${previousChar}`
-      currentCharCounts = 1
-    } else {
-      currentCharCounts++
+// 1. non-empty string
+// 2. AAAAAAAAAAAAA (12 A) should be encoded as 9A3A not 12A.
+
+function runLengthEncoding(string) {
+  let answer = ''
+  let last = string[0]
+  let count = 1
+
+  for (let i = 1; i < string.length; i++) {
+    current = string[i]
+    
+    if (current !== last || count === 9) {
+      answer += `${count}${last}`
+      last = current
+      count = 0
     }
+
+    count++
   }
 
-  encodeString += `${currentCharCounts}${string[string.length - 1]}`
+  answer += `${count}${last}`
 
-  return encodeString
+  return answer
 }
+
+//  O(n) time | O(n) space, where n is the length of the input string
 
 console.log(runLengthEncoding("AAAAAAAAAAAAABBCCCCDD")) // 9A4A2B4C2D
