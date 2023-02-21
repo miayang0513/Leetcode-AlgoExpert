@@ -3,30 +3,32 @@
  * @param {string} string 
  * @returns {string}
  */
-function reverseWordsInString (string) {
-  const wordArray = []
-  let currentItem = ''
 
-  for (const char of string) {
-    if (char === ' ' && currentItem.trim().length === currentItem.length) {
-      wordArray.push(currentItem)
-      currentItem = char
-    } else if (char !== ' ' && currentItem.trim().length !== currentItem.length) {
-      wordArray.push(currentItem)
-      currentItem = char
+function reverseWordsInString(string) {
+  const words = []
+  let currentWord = ''
+  for (let i = 0; i < string.length; i++) {
+    const current = string[i]
+
+    if (current === ' ') {
+      words.push(currentWord)
+      words.push(' ')
+      currentWord = ''
     } else {
-      currentItem += char
+      currentWord += current
     }
   }
-  wordArray.push(currentItem)
 
-  let reverseString = ''
-  for (let i = wordArray.length - 1; i >= 0; i--) {
-    reverseString += wordArray[i]
+  words.push(currentWord)
+
+  const answer = new Array(words.length).fill('')
+  for (let i = 0; i < words.length; i++) {
+    answer[i] = words[words.length - 1 - i]
   }
-
-  return reverseString
+  return answer.join('')
 }
+
+// O(n) time | O(n) space, where n is the length of string
 
 console.log(reverseWordsInString("AlgoExpert is the best!"))
 console.log(reverseWordsInString("whitespaces    4"))
