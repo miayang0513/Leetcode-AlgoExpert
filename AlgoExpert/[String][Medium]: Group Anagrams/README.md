@@ -26,6 +26,10 @@ words = ["yo", "act", "flop", "tac", "foo", "cat", "oy", "olfp"]
  * @param {string[]} words 
  * @returns {string[][]}
  */
+
+// 1. words is array of strings.
+// 2. no particular order.
+
 function groupAnagrams (words) {
   const anagramsMap = {}
   for (const word of words) {
@@ -53,4 +57,6 @@ function getAnagramsKey (word) {
   }
   return upper.join('') + lower.join('')
 }
+
+// O(w*n) time | O(c) space, where w is the length of the words, n is the length of the longest word and c is the frequency of the unique keys (the length of the return array)
 ```
