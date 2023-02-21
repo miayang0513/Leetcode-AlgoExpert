@@ -26,24 +26,35 @@ string = "abaxyzzyxf"
  * @param {string} string 
  * @returns {string}
  */
-function longestPalindromicSubstring (string) {
-  let longestInterval = [0, 1]
-  for (let i = 0; i < string.length - 1; i++) {
-    const even = getPalindromicInterval(string, i, i + 1)
-    const odd = getPalindromicInterval(string, i, i + 2)
-    const longest = odd[1] - odd[0] > even[1] - even[0] ? odd : even
-    longestInterval = longestInterval[1] - longestInterval[0] > longest[1] - longest[0] ? longestInterval : longest
+
+// 1. single-character string is palindromes.
+// 2. only one longest.
+
+function longestPalindromicSubstring(string) {
+  if (string.length < 2) return string
+
+  let longest = ''
+  for (let i = 1; i < string.length; i++) {
+    const odd = findPalindromicSubstring(string, i-1, i)
+    const even = findPalindromicSubstring(string, i - 1, i + 1)
+    const current = odd.length > even.length ? odd : even
+    longest = longest.length > current.length ? longest : current
   }
 
-  return string.slice(longestInterval[0], longestInterval[1] + 1)
+  return longest
 }
 
-function getPalindromicInterval (string, left, right) {
+function findPalindromicSubstring (string, left, right) {
   while (left >= 0 && right < string.length) {
-    if (string[left] !== string[right]) break
+    if (string[left] !== string[right]) {
+      break
+    }
     left--
     right++
   }
-  return [left + 1, right - 1]
+  return string.slice(left + 1, right)
 }
+
+
+// O(n^2) time | O(n) space
 ```
