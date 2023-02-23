@@ -3,42 +3,46 @@
  * @param {string} string 
  * @returns {string[]}
  */
-function validIPAddresses (string) {
-  const answer = []
-  const len = string.length
-  for (let first = 1; first < 4; first++) {
-    const firstNum = string.slice(0, first)
 
-    if (!checkNumberValid(firstNum)) continue
+// 1. string of length 12 or smaller, only digits.
+// 2. leading 0 is invalid. for example x.x.x.00 or x.x.x.01, but x.x.0.x is valid.
+// 3. No greater than 255.
+// 4. should return string (insert three .) and in no particular order.
 
-    for (let second = first + 1; second < first + Math.min(len - first, 4); second++) {
-      const secondNum = string.slice(first, second)
+function validIPAddresses(string) {
+  const validIPList = []
 
-      if (!checkNumberValid(secondNum)) continue
+  for (let first = 0; first < string.length - 3; first++) {
+    const firstNum = string.slice(0, first + 1)
+    if (!isValidNumber(firstNum)) continue
 
-      for (let third = second + 1; third < second + Math.min(len - second, 4); third++) {
-        const thirdNum = string.slice(second, third)
-        const fourNum = string.slice(third, string.length)
+    for (let second = first + 1; second < string.length - 2; second++) {
+      const secondNum = string.slice(first + 1, second + 1)
 
-        if (checkNumberValid(thirdNum) && checkNumberValid(fourNum)) {
-          answer.push([firstNum, secondNum, thirdNum, fourNum].join("."))
-        }
+      if (!isValidNumber(secondNum)) continue
+
+      for (let third = second + 1; third < string.length - 1; third++) {
+        const thirdNum = string.slice(second + 1, third + 1)
+        const fourthNum = string.slice(third + 1, string.length)
+
+        if (!(isValidNumber(thirdNum) && isValidNumber(fourthNum))) continue
+
+        validIPList.push([firstNum, secondNum, thirdNum, fourthNum].join('.'))
       }
     }
   }
 
-  return answer
+  return validIPList
 }
 
-function checkNumberValid (string) {
-  const number = Number(string)
+const isValidNumber =  (stringNum) => {
+  const num = Number(stringNum)
+  
+  if (num > 255) return false
 
-  if (string !== String(number)) return false
-
-  if (number < 0 || number > 255) return false
-
-  return true
+  return String(num).length === stringNum.length
 }
+
 
 console.log(validIPAddresses("1921680"))
 /**
