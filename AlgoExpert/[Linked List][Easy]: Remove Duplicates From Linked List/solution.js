@@ -11,6 +11,9 @@ class LinkedList {
  * @returns {LinkedList}
  */
 
+// 1. given a linked list whose nodes are in sorted order.
+// 2. return a modified version of linked list (can't create a brand new list).
+
 function removeDuplicatesFromLinkedList (linkedList) {
   let currentNode = linkedList
 
@@ -25,3 +28,5 @@ function removeDuplicatesFromLinkedList (linkedList) {
 
   return linkedList
 }
+
+// O(n) time | O(1) space, where n is the number of nodes in the Linked List
