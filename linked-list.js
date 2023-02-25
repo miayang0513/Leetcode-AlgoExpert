@@ -12,21 +12,23 @@ class SinglyLinkedList {
     this.length = 0
   }
 
+  // add an element to the end of list and return itself.
   push (val) {
     const newNode = new Node(val)
 
-    if (!this.head) {
+    if (this.head === null) { // length === 0
       this.head = newNode
-      this.tail = this.head
     } else {
       this.tail.next = newNode
-      this.tail = newNode
     }
+
+    this.tail = newNode
     this.length++
 
     return this
   }
 
+  // remove the last element from teh list and return that element.
   pop () {
     if (this.length === 0) return undefined
 
@@ -38,38 +40,41 @@ class SinglyLinkedList {
       currentNode = currentNode.next
     }
 
-    this.tail = newTail
-    this.tail.next = null
     this.length--
 
     if (this.length === 0) {
       this.head = null
+      this.tail = null
+    } else {
+      this.tail = newTail
+      this.tail.next = null
+    }
+
+    return currentNode
+  }
+
+  // remove the first element from the list return that element.
+  shift () {
+    if (this.length === 0) return undefined
+
+    let currentNode = this.head
+    this.head = this.head.next
+    this.length--
+
+    if (this.length === 0) {
       this.tail = null
     }
 
     return currentNode
   }
 
-  shift () {
-    if (this.length === 0) return undefined
-
-    const shiftNode = this.head
-    this.head = shiftNode.next
-    this.length--
-    if (this.length === 0) {
-      this.head = null
-      this.tail = null
-    }
-
-    return shiftNode
-  }
-
+  // add an element to the beginning of the list and return itself.
   unshift (val) {
     const newNode = new Node(val)
 
-    if (!this.head) {
+    if (this.head === null) {
       this.head = newNode
-      this.tail = this.head
+      this.tail = newNode
     } else {
       newNode.next = this.head
       this.head = newNode
@@ -79,6 +84,7 @@ class SinglyLinkedList {
     return this
   }
 
+  // return the element at that index.
   get (index) {
     if (index < 0 || index >= this.length) return null
 
@@ -93,6 +99,7 @@ class SinglyLinkedList {
     return currentNode
   }
 
+  // set the value at that index.
   set (index, val) {
     if (index < 0 || index >= this.length) return false
 
@@ -102,66 +109,99 @@ class SinglyLinkedList {
     return true
   }
 
+  // add new element at that index.
   insert (index, val) {
     if (index < 0 || index > this.length) return false
 
+    const newNode = new Node(val)
+
     if (index === 0) {
-      this.unshift(val)
+      newNode.next = this.head
+      this.head = newNode
+
+      if (this.length === 0) {
+        this.tail = newNode
+      }
     } else if (index === this.length) {
-      this.push(val)
+      this.tail.next = newNode
+      this.tail = newNode
     } else {
-      const prevNode = this.get(index - 1)
-      const newNode = new Node(val)
-      newNode.next = prevNode.next
+      let count = 0
+      let currentNode = this.head
+      let prevNode = currentNode
+
+      while (count < index) {
+        count++
+        prevNode = currentNode
+        currentNode = currentNode.next
+      }
       prevNode.next = newNode
-      this.length++
+      newNode.next = currentNode
     }
 
+    this.length++
     return true
   }
 
+  // remove the element at that index.
   remove (index) {
     if (index < 0 || index >= this.length) return false
 
     if (index === 0) {
-      return this.shift()
-    } else if (index === this.length - 1) {
-      return this.pop()
+      this.head = this.head.next
+
+      if (this.length === 1) {
+        this.tail = null
+      }
     } else {
-      const prevNode = this.get(index - 1)
-      const removeNode = prevNode.next
-      prevNode.next = removeNode.next
-      this.length--
-      return removeNode
+      let count = 0
+      let currentNode = this.head
+      let prevNode = currentNode
+
+      while (count < index) {
+        prevNode = currentNode
+        currentNode = currentNode.next
+        count++
+      }
+
+      prevNode.next = currentNode.next
+
+      if (index === this.length - 1) {
+        this.tail = prevNode
+      }
     }
+
+    this.length--
+    return true
   }
 
   reverse () {
-    let prev = null
-    let current = this.head
-    let next
-    [this.head, this.tail] = [this.tail, this.head]
+    this.tail = this.head
+    let prevNode = null
+    let currentNode = this.head
+    let nextNode
 
-    while (current) {
-      next = current.next
-      current.next = prev
-      prev = current
-      current = next
+    while (currentNode !== null) {
+      nextNode = currentNode.next
+      currentNode.next = prevNode
+      prevNode = currentNode
+      currentNode = nextNode
     }
 
+    this.head = prevNode
     return this
   }
 
   print () {
-    const nodeList = []
     let currentNode = this.head
+    const valueList = []
 
     while (currentNode !== null) {
-      nodeList.push(currentNode.val)
+      valueList.push(currentNode.val)
       currentNode = currentNode.next
     }
 
-    console.log(nodeList.join(' -> '))
+    console.log(valueList.join(' -> '))
   }
 }
 
@@ -171,10 +211,14 @@ list.push(0) // 0
 list.push(1) // 0 -> 1
 list.push(2) // 0 -> 1 -> 2
 list.push(3) // 0 -> 1 -> 2 -> 3
+list.print() // 0 -> 1 -> 2 -> 3
 list.pop() // 0 -> 1 -> 2
 list.pop() // 0 -> 1
+list.print() // 0 -> 1
 list.shift() // 1
+list.print() // 1
 list.unshift(0) // 0 -> 1
+list.print() // 0 -> 1
 console.log(list.get(1)) // { val: 1, next: null }
 console.log(list.get(2)) // null
 
@@ -184,8 +228,10 @@ list.print() // 100 -> 1
 list.insert(1, 99) // 100 -> 99 -> 1
 list.insert(3, 0) // 100 -> 99 -> 1 -> 0
 list.insert(2, 50) // 100 -> 99 -> 50 -> 1 -> 0
-list.print() // 00 -> 99 -> 50 -> 1 -> 0
+list.insert(0, 101) // 101 -> 100 -> 99 -> 50 -> 1 -> 0
+list.print() // 101 -> 100 -> 99 -> 50 -> 1 -> 0
 
+list.remove(0) // 100 -> 99 -> 50 -> 1 -> 0
 list.remove(1) // 100 -> 50 -> 1 -> 0
 list.print() // 100 -> 50 -> 1 -> 0
 
