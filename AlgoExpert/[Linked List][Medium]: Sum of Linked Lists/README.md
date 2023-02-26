@@ -25,7 +25,6 @@ linkedListTwo = 9 -> 4 -> 5
 
 ### My Solution
 ```js
-// This is an input class. Do not edit.
 class LinkedList {
   constructor (value) {
     this.value = value
@@ -39,32 +38,41 @@ class LinkedList {
  * @param {LinkedList} linkedListTwo 
  * @returns {LinkedList}
  */
-function sumOfLinkedLists (linkedListOne, linkedListTwo) {
-  let fakeHead = new LinkedList(null)
-  let tail = fakeHead
+
+// 1. create and return new Linked List
+// 2. Not allow to modify either of the input Linked Lists
+
+function sumOfLinkedLists(linkedListOne, linkedListTwo) {
+  let sumLinkedList = new LinkedList(null)
+  let current = sumLinkedList
+
+  let one = linkedListOne
+  let two = linkedListTwo
   let carry = 0
-  while (linkedListOne && linkedListTwo) {
-    const currentSum = linkedListOne.value + linkedListTwo.value + carry
-    const currentValue = currentSum % 10
-    const currentNode = new LinkedList(currentValue)
-    tail.next = currentNode
-    tail = currentNode
-    linkedListOne = linkedListOne.next
-    linkedListTwo = linkedListTwo.next
+  
+  while (one !== null || two !== null || carry !== 0)  {
+    const oneValue = one !== null ? one.value : 0
+    const twoValue = two !== null ? two.value : 0
+    const sum = oneValue + twoValue + carry
+    carry = Math.floor(sum / 10)
+    const remainder = sum % 10
 
-    carry = Math.floor(currentSum / 10)
+    const newNode = new LinkedList(remainder)
+    current.next = newNode
+    current = newNode
+
+    if (one !== null) {
+      one = one.next
+    }
+
+    if (two !== null) {
+      two = two.next
+    }
   }
 
-  if (linkedListOne) {
-    tail.next = linkedListOne
-    carry !== 0 && tail.next.value++
-  } else if (linkedListTwo) {
-    tail.next = linkedListTwo
-    carry !== 0 && tail.next.value++
-  } else if (carry !== 0) {
-    tail.next = new LinkedList(carry)
-  }
-
-  return fakeHead.next
+  return sumLinkedList.next
 }
+
+// O(max(n, m)) time | O(max(n, m)) space, where n is the length of the first Linked List and m is another Linked List.
+
 ```
