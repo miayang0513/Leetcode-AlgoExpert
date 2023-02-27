@@ -49,4 +49,6 @@ function reverseLinkedList (head) {
   head = prev
   return head
 }
+
+// O(n) time | O(1) space, where n is the number of nodes in the Linked List
 ```
