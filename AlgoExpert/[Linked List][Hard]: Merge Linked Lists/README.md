@@ -37,24 +37,30 @@ class LinkedList {
  * @returns {LinkedList}
  */
 
-function mergeLinkedLists (headOne, headTwo) {
+function mergeLinkedLists(headOne, headTwo) {
   let one = headOne
   let two = headTwo
   let prev = null
 
-  while (one && two) {
-    if (one.value < two.value) {
-      prev = one
-      one = one.next
-    } else {
+  while (one !== null && two !== null) {
+    if (one.value > two.value) {
       if (prev !== null) prev.next = two
       prev = two
       two = two.next
       prev.next = one
+    } else {
+      prev = one
+      one = one.next
     }
   }
 
-  if (!one) prev.next = two
-  return headOne.value < headTwo.value ? headOne : headTwo
+  if (one === null) {
+    prev.next = two
+  }
+
+  return headOne.value > headTwo.value ? headTwo : headOne
 }
+
+// O(n + m) time | O(1) space, where n is the number of nodes in the first Linked List
+// and m is the number of nodes in the second Linked List
 ```
