@@ -55,4 +55,5 @@ function findLoop(head) {
   return first
 }
 
+// O(n) time | O(1) space, where n is the number of nodes in the Linked List
 ```
