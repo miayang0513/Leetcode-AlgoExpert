@@ -1,3 +1,5 @@
+// ref: https://arsenekuo.com/post/2021/10/11/implementation-of-singly-linked-list-in-javascript
+
 class Node {
   constructor (val) {
     this.val = val
