@@ -1,6 +1,6 @@
 # [Validate BST](https://www.algoexpert.io/questions/validate-bst)
 
-`Easy` `BST`
+`Medium` `BST`
 
 ### Question
 Write a function that takes in a potentially invalid Binary Search Tree (BST) and returns a boolean representing whether the BST is valid.
