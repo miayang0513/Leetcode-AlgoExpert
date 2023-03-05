@@ -49,7 +49,7 @@ class BinaryTree {
  * 
  * @param {BinaryTree} tree 
  * @param {BinaryTree} node 
- * @returns {array}
+ * @returns {BinaryTree}
  */
 
 function findSuccessor(tree, node) {

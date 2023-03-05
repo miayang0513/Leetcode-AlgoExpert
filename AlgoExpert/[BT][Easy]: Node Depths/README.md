@@ -42,7 +42,7 @@ class BinaryTree {
 /**
  * 
  * @param {BinaryTree} root 
- * @returns {array}
+ * @returns {number}
  */
 
 function nodeDepths(root) {

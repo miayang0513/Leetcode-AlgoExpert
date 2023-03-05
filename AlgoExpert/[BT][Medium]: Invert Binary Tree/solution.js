@@ -9,7 +9,7 @@ class BinaryTree {
 /**
  * 
  * @param {BinaryTree} tree 
- * @returns {array}
+ * @returns {BinaryTree}
  */
 
 function invertBinaryTree(tree) {
