@@ -1,4 +1,4 @@
-# [Branch Sums](https://www.algoexpert.io/questions/branch-sums)
+# [Node Depths](https://www.algoexpert.io/questions/node-depths)
 
 `Easy` `BT`
 
